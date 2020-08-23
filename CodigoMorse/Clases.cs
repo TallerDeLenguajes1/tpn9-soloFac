@@ -101,7 +101,6 @@ namespace Helpers
                 string salida;
                 if (caracter != ' ')
                 {
-                    Console.WriteLine("El caracter es: " + caracter);
                     //Envio el char convertido a minusculas, para obtener el valor de la clave(char)
                     DiccionarioCodigoMorse.TryGetValue(Char.ToLower(caracter), out salida);
                     //Concateno el valor de cada caracter en codigo morse

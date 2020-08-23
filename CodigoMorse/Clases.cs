@@ -6,7 +6,7 @@ using System.Text.Encodings;
 
 namespace Helpers
 {
-    public class SoporteParaConfiguracion
+    public static class SoporteParaConfiguracion
     {
         static public void CrearArchivoDeConfiguracion(string ruta, string nombre)    //Crea archivos con extension .dat
         {
@@ -42,8 +42,80 @@ namespace Helpers
                 }
             }
         }
+    }
 
-        
+    public static class ConversorDeMorse{
+        static Dictionary<char, string> DiccionarioCodigoMorse = new Dictionary<char, string>()
+        {
+            {'a', ".-"},
+            {'b', "-..."},
+            {'c', "-.-."},
+            {'d', "-.."},
+            {'e', "."},
+            {'f', "..-."},
+            {'g', "--."},
+            {'h', "...."},
+            {'i', ".."},
+            {'j', ".---"},
+            {'k', "-.-"},
+            {'l', ".-.."},
+            {'m', "--"},
+            {'n', "-."},
+            {'o', "---"},
+            {'p', ".--."},
+            {'q', "--.-"},
+            {'r', ".-."},
+            {'s', "..."},
+            {'t', "-"},
+            {'u', "..-"},
+            {'v', "...-"},
+            {'w', ".--"},
+            {'x', "-..-"},
+            {'y', "-.--"},
+            {'z', "--.."},
+
+            {'1', ".----"},
+            {'2', "..---"},
+            {'3', "...--"},
+            {'4', "....-"},
+            {'5', "....."},
+            {'6', "-...."},
+            {'7', "--..."},
+            {'8', "---.."},
+            {'9', "----."},
+            {'0', "-----"}
+        };
+
+        static public string MorseATexto(string clave)
+        {
+
+
+            return "texto";
+        }
+
+        static public string TextoAMorse(string texto)
+        {
+            string ClaveMorse = "";
+            foreach (char caracter in texto)
+            {
+                string salida;
+                if (caracter != ' ')
+                {
+                    Console.WriteLine("El caracter es: " + caracter);
+                    //Envio el char convertido a minusculas, para obtener el valor de la clave(char)
+                    DiccionarioCodigoMorse.TryGetValue(Char.ToLower(caracter), out salida);
+                    //Concateno el valor de cada caracter en codigo morse
+                    ClaveMorse += salida + ' ';
+                }
+                else
+                {
+                    ClaveMorse += '/';
+                }
+            }
+
+            return ClaveMorse;
+        }
+
 
 
     }

@@ -10,6 +10,8 @@ namespace CodigoMorse
 {
     class Program
     {
+        //PUNTO 1 y 2
+        /*
         static void Main(string[] args)
         {
             //PUNTO 1
@@ -45,6 +47,25 @@ namespace CodigoMorse
                     File.Move(Origen, ruta + NombreArchivo);
                 }
             }
+
+        }
+        */
+
+        static void Main(string[] args)
+        {
+            Dictionary<string, string> DiccionarioClaveMorse = new Dictionary<string, string>();
+
+            //DiccionarioClaveMorse["a"] = ".-";
+
+            
+
+            string texto = "Esto es un texto";
+            string clave = ConversorDeMorse.TextoAMorse(texto);
+
+            Console.WriteLine("El texto '{0}' en clave morse es: " + texto + clave);
+
+
+
 
         }
     }

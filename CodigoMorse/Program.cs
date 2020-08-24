@@ -57,15 +57,15 @@ namespace CodigoMorse
 
             //DiccionarioClaveMorse["a"] = ".-";
 
-            
-
-            string texto = "Esto es un texto";
+            string texto = "Los defines son azules";
             string clave = ConversorDeMorse.TextoAMorse(texto);
 
             Console.WriteLine("El texto '{0}' en clave morse es: {1}", texto, clave);
 
+            texto = ConversorDeMorse.MorseATexto(clave);
 
-            Console.ReadKey();
+            Console.WriteLine("La clave morse '{0}' en texto es: {1}", clave, texto);
+
 
 
         }

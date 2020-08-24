@@ -88,7 +88,27 @@ namespace Helpers
 
         static public string MorseATexto(string clave)
         {
+            //string hola = clave.Trim(' ');
+            //DiccionarioCodigoMorse.ContainsValue("-.--");
+            string[] palabras = clave.Split("/");
 
+            for (int i = 0; i < palabras.Length ; i++)
+            {
+
+
+            }
+
+            string texto = "";
+
+            //Para cada par de valores me fijo si el valor coindice con la letra, si coincide lo extraigo y concateno
+            foreach (KeyValuePair<char, string> par in DiccionarioCodigoMorse)
+            {
+                if (par.Value == "-..")
+                {
+                    texto += par.Key; // Found
+                }
+            }
+            
 
             return "texto";
         }

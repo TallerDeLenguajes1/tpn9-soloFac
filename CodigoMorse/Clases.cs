@@ -88,29 +88,34 @@ namespace Helpers
 
         static public string MorseATexto(string clave)
         {
-            //string hola = clave.Trim(' ');
-            //DiccionarioCodigoMorse.ContainsValue("-.--");
-            string[] palabras = clave.Split("/");
+            //Voy a separar las palabras en un arreglo de string, y luego cada letra, despues utilizando
+            //un recorrido de KeyValuePair para cada par de valores comparando cada value con la letramorse
+            //para ver si conincide y si coincide entonces extraere su Key.
+            string[] palabrasMorse = clave.Split("/");       // .-.. --- ... /-.. . ..-. .. -. . ... /... --- -. /.- --.. ..- .-..
 
-            for (int i = 0; i < palabras.Length ; i++)
-            {
-
-
-            }
+            string[] letrasMorse;
 
             string texto = "";
 
-            //Para cada par de valores me fijo si el valor coindice con la letra, si coincide lo extraigo y concateno
-            foreach (KeyValuePair<char, string> par in DiccionarioCodigoMorse)
+            foreach (string palabra in palabrasMorse)
             {
-                if (par.Value == "-..")
+                letrasMorse = palabra.Split(" ");
+                foreach (string letra in letrasMorse)
                 {
-                    texto += par.Key; // Found
+                    //Para cada par de valores me fijo si el valor coindice con la letra, si coincide lo extraigo y concateno
+                    foreach (KeyValuePair<char, string> par in DiccionarioCodigoMorse)  //Es lo unico mas costoso en el ciclo
+                    {
+                        if (par.Value == letra)
+                        {
+                            texto += par.Key; // Found
+                        }
+                    }
                 }
+                //Cuando pase a otra palabra voy a agregar un espacio para separarlas
+                texto += " ";
             }
-            
 
-            return "texto";
+            return texto;
         }
 
         static public string TextoAMorse(string texto)

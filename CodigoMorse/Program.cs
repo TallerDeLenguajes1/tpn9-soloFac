@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
-
+using System.Linq;
 using Helpers;
 
 
@@ -68,12 +68,19 @@ namespace CodigoMorse
             //Apartado
             string ruta = @"C:\Users\Franco\Desktop\Repositorios\codebin#\TPN9\Morse\";
 
-            ArchivarTextoMorse(ruta);
+            //ArchivarTextoMorse(ruta);
+
+            //Leera algunos de los archivos traducido anteriormente y lo traducira nuevamente a texto,
+            //sera seleccionado aleatoriamente y mostrado por pantalla
+            //Otra forma seria guardar los archivos con solo la fecha actual sin la hora y en este funcion Lectura_Traduccion
+            //traducir y mostrar por pantalla el archivo con la fecha actual
+            Lectura_Traduccion(ruta);
 
         }
 
 
-
+        //ArchivarTextoMorse: recibe la ruta donde se quiere guardar un archivo.txt, pide escribir un texto
+        //el cual sera traducido a clave morse y guardado en el archivo con nombre morse_fechaActual
         public static void ArchivarTextoMorse(string ruta)
         {
             Console.WriteLine("Escriba el texto morse a traducir");
@@ -98,6 +105,59 @@ namespace CodigoMorse
                     using (StreamWriter stream = new StreamWriter(archivo))
                     {
                         stream.WriteLine(clave);
+                    }
+                }
+            }
+        }
+
+        //Leera algunos de los archivos traducido anteriormente y lo traducira nuevamente a texto,
+        //sera seleccionado aleatoriamente y mostrado por pantalla
+        //Otra forma seria guardar los archivos con solo la fecha actual sin la hora y en este funcion Lectura_Traduccion
+        //traducir y mostrar por pantalla el archivo con la fecha actual
+        public static void Lectura_Traduccion(string ruta)
+        {
+            string[] rutasArchivos = Directory.GetFiles(ruta);
+
+            Random aleatorio = new Random();
+
+            int aleat = aleatorio.Next(0, rutasArchivos.Length);
+
+            //La ruta seleccionada aleatoriamente la guardo en otra variable porque en FileStream no puedo utlilizar
+            // los [] para indicar un archivo
+            string rutaArchivoLect = rutasArchivos[aleat];
+
+            //Obtengo el nombre del txt en clave morse, para guardar la traduccion con la misma fecha
+            string[] dirContenidos = rutaArchivoLect.Split(@"\");
+            string nombreArchivoMorse = dirContenidos.Last();
+
+            using (FileStream archivoMorse = new FileStream(rutaArchivoLect, FileMode.Open))
+            {
+                using (StreamReader streamReadMorse = new StreamReader(archivoMorse))
+                {
+                    string claveMorseArchivo = streamReadMorse.ReadLine();
+
+                    string textoTraducido = ConversorDeMorse.MorseATexto(claveMorseArchivo);
+
+                    Console.WriteLine("El texto de la funcion traducido es: " + textoTraducido);
+
+                    //Obtengo un directorio anterior para que en otra carpeta llamada traduccionMorse
+                    //se guarde el texto traducido
+                    DirectoryInfo dirtArchivoMorse = new DirectoryInfo(ruta);
+                    string dirPadre = dirtArchivoMorse.Parent.ToString();
+                    Console.WriteLine(dirPadre);
+                    string dirDestino = dirPadre + @"\traduccionMorse\";
+                    if (!Directory.Exists(dirDestino))
+                    {
+                        Directory.CreateDirectory(dirDestino);
+                    }
+                    //Guardo la ruta completa del archivo traducido para crearla y luego escribir en el archivo
+                    string archivoTraducido = dirDestino + "traduccion_" + nombreArchivoMorse;
+                    using (FileStream archivoTexto = new FileStream(archivoTraducido, FileMode.Create))
+                    {
+                        using (StreamWriter streamWriteTrad = new StreamWriter(archivoTexto))
+                        {
+                            streamWriteTrad.WriteLine(textoTraducido);
+                        }
                     }
                 }
             }

@@ -53,34 +53,33 @@ namespace CodigoMorse
 
         static void Main(string[] args)
         {
-            Dictionary<string, string> DiccionarioClaveMorse = new Dictionary<string, string>();
-
-            //DiccionarioClaveMorse["a"] = ".-";
-
             string texto = "Los delfines son azules";
-
+            //El texto es traducido a clave morse y luego mostrado por pantalla
             string clave = ConversorDeMorse.TextoAMorse(texto);
-
             Console.WriteLine("El texto '{0}' en clave morse es: {1}", texto, clave);
 
+            //envio la clave del texto anterior que fue traducida para verificar su funcionamiento, muestro por pantalla
             texto = ConversorDeMorse.MorseATexto(clave);
-
             Console.WriteLine("La clave morse '{0}' traducida es: {1}", clave, texto);
 
-            ArchivarTextoMorse();
+
+            //ArchivarTextoMorse: recibe la ruta donde se quiere guardar un archivo.txt, pide escribir un texto
+            //el cual sera traducido a clave morse y guardado en el archivo con nombre morse_fechaActual
+            //Apartado
+            string ruta = @"C:\Users\Franco\Desktop\Repositorios\codebin#\TPN9\Morse\";
+
+            ArchivarTextoMorse(ruta);
 
         }
 
-        public static void ArchivarTextoMorse()
+
+
+        public static void ArchivarTextoMorse(string ruta)
         {
             Console.WriteLine("Escriba el texto morse a traducir");
-            //string texto = Console.ReadLine();
-            string texto = "los delfines son azules";
-
+            string texto = Console.ReadLine();
+            
             string clave = ConversorDeMorse.TextoAMorse(texto);
-
-            //Consulta
-            string ruta = @"C:\Users\Franco\Desktop\Repositorios\codebin#\TPN9\Morse\";
 
             if (!Directory.Exists(ruta))
             {
@@ -88,16 +87,20 @@ namespace CodigoMorse
             }
 
             DateTime FechaActual = DateTime.Now;
-            string nombre = "morse_" + FechaActual.ToString("d") + "-" + FechaActual.ToString("hh:mm:ss") + ".txt";
+            string nombre = "morse_[" + FechaActual.ToString("dd_MM_yy") + "]-" + FechaActual.ToString("hh_mm_ss") + ".txt";
 
-            string RutaArchivo = ruta + nombre;
+            string rutaArchivo = ruta + nombre;
 
-            if (!File.Exists(RutaArchivo))
+            if (!File.Exists(rutaArchivo))
             {
-                File.Create(RutaArchivo);
+                using (FileStream archivo = new FileStream(rutaArchivo, FileMode.Create))
+                {
+                    using (StreamWriter stream = new StreamWriter(archivo))
+                    {
+                        stream.WriteLine(clave);
+                    }
+                }
             }
-
-            
         }
     }
 }

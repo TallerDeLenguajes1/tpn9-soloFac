@@ -138,13 +138,12 @@ namespace CodigoMorse
 
                     string textoTraducido = ConversorDeMorse.MorseATexto(claveMorseArchivo);
 
-                    Console.WriteLine("El texto de la funcion traducido es: " + textoTraducido);
+                    Console.WriteLine("El texto de traducido es: " + textoTraducido);
 
                     //Obtengo un directorio anterior para que en otra carpeta llamada traduccionMorse
                     //se guarde el texto traducido
                     DirectoryInfo dirtArchivoMorse = new DirectoryInfo(ruta);
                     string dirPadre = dirtArchivoMorse.Parent.ToString();
-                    Console.WriteLine(dirPadre);
                     string dirDestino = dirPadre + @"\traduccionMorse\";
                     if (!Directory.Exists(dirDestino))
                     {

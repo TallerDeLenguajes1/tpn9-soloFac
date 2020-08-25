@@ -67,8 +67,37 @@ namespace CodigoMorse
 
             Console.WriteLine("La clave morse '{0}' traducida es: {1}", clave, texto);
 
+            ArchivarTextoMorse();
 
+        }
 
+        public static void ArchivarTextoMorse()
+        {
+            Console.WriteLine("Escriba el texto morse a traducir");
+            //string texto = Console.ReadLine();
+            string texto = "los delfines son azules";
+
+            string clave = ConversorDeMorse.TextoAMorse(texto);
+
+            //Consulta
+            string ruta = @"C:\Users\Franco\Desktop\Repositorios\codebin#\TPN9\Morse\";
+
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
+
+            DateTime FechaActual = DateTime.Now;
+            string nombre = "morse_" + FechaActual.ToString("d") + "-" + FechaActual.ToString("hh:mm:ss") + ".txt";
+
+            string RutaArchivo = ruta + nombre;
+
+            if (!File.Exists(RutaArchivo))
+            {
+                File.Create(RutaArchivo);
+            }
+
+            
         }
     }
 }
